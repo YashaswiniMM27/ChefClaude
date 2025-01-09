@@ -1,29 +1,29 @@
+import React from "react"
+
 function Content(){
 
-    const ingredients = ["Tomato", "Oregano", "Chicken"]
+    const [ingredients, setIngredients] = React.useState([])
 
-    const ingredientsList = ingredients.map((ingredient) => {
-        return (<li key={ingredient}>
-        {ingredient}
-        </li>)
-    })
+    const ingredientsList = ingredients.map(ingredient => (
+        <li key={ingredient}>{ingredient}</li>
+    ))
 
     function handleSubmit(event){
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        const newIng = formData.get("ingredient")
-        ingredients.push(newIng)
-        console.log(ingredients)
+        const newIngredient = formData.get("ingredient")
+        if(newIngredient)
+        {setIngredients(prev => [...prev, newIngredient])}
+        event.currentTarget.reset()
     }
-
 
     return(
         <div>
-            <form className="inputSection" onSubmit={handleSubmit} name="ingredient">
+            <form className="inputSection" onSubmit={handleSubmit} >
             <input type="text" placeholder="e.g. oregano" name="ingredient" />
-            <button>+ Add ingredient</button>
-        </form>
-        <section>
+            <button >+ Add ingredient</button>
+            </form>
+            <section>
                 <ul>
                     {ingredientsList}
                 </ul>
@@ -34,3 +34,4 @@ function Content(){
 }
 
 export default Content
+
