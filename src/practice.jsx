@@ -2,8 +2,8 @@ import React from "react"
 import starEmpty from "./assets/star-empty-icon.png";
 import starFilled from "./assets/star-filled.webp";
 
-
-function ContactCard() {
+//object setState
+export function ContactCard() {
     const [contact, setContact] = React.useState({
         firstName: "John",
         lastName: "Doe",
@@ -56,4 +56,24 @@ function ContactCard() {
     )
 }
 
-export default ContactCard
+
+//Conditional Rendering 1
+export default function Joke(props) {
+    const [isShown, setIsShown] = React.useState(false)
+
+    function IsShown(event){
+        event.preventDefault()
+        setIsShown(prevShown => !prevShown)
+    }
+
+
+
+    return (
+        <div>
+            {props.setup && <h3>{props.setup}</h3>}
+            {isShown ? <p>{props.punchline}</p> : null}
+            <button onClick={IsShown}>{!isShown ? "Show" : "Hide"} punchline</button>
+            <hr />
+        </div>
+    )
+}
