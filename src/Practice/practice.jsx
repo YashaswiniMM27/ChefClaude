@@ -1,9 +1,8 @@
 import React from "react"
-import starEmpty from "./assets/star-empty-icon.png";
-import starFilled from "./assets/star-filled.webp";
+import StarButton from "./contactPractice.jsx";
 
 //object setState
-export function ContactCard() {
+export default function ContactCard() {
     const [contact, setContact] = React.useState({
         firstName: "John",
         lastName: "Doe",
@@ -12,7 +11,6 @@ export function ContactCard() {
         isFavorite: false
     })
 
-    let starIcon = contact.isFavorite ? starFilled : starEmpty
 
     function toggleFavorite() {
         setContact(prev => {
@@ -32,18 +30,9 @@ export function ContactCard() {
                     alt="User profile picture of John Doe"
                 />
                 <div className="info">
-                    <button
-                        onClick={toggleFavorite}
-                        aria-pressed={contact.isFavorite}
-                        aria-label= {contact.isFavorite ? "Add to favorite" : "Remove from favorite"}
-                        className="favorite-button"
-                    >
-                        <img
-                            src={starIcon}
-                            alt={contact.isFavorite ? "Filled Star" : "Empty Star"}
-                            className="favorite"
-                        />
-                    </button>
+
+                    <StarButton isFilled={contact.isFavorite} handleClick={toggleFavorite}/>
+
                     <h2 className="name">
                         {contact.firstName} {contact.lastName}
                     </h2>
@@ -58,7 +47,7 @@ export function ContactCard() {
 
 
 //Conditional Rendering 1
-export default function Joke(props) {
+export function Joke(props) {
     const [isShown, setIsShown] = React.useState(false)
 
     function IsShown(event){
@@ -75,5 +64,14 @@ export default function Joke(props) {
             <button onClick={IsShown}>{!isShown ? "Show" : "Hide"} punchline</button>
             <hr />
         </div>
+    )
+}
+
+
+//Passing states as props
+export function Count(props){
+    console.log("Count Rendered")
+    return(
+        <h2 className="count">{props.number}</h2>
     )
 }
