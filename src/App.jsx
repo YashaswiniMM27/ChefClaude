@@ -8,13 +8,12 @@ import ContactCard from "../src/Practice/practice.jsx"
 
 function App() {
 
-  return(
-    <>
-    {/* <Header/>
-    <Content/> */}
-    <ContactCard/>
-    </>
-  )
+    return(
+        <>
+        <Header/>
+        <Content/>
+        </>
+    )
 }
 
 
