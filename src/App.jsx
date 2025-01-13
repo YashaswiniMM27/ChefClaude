@@ -16,9 +16,7 @@ function App() {
 
 
 
-
-
-
+//Exercise renditions
 
 
 /*
@@ -28,6 +26,9 @@ return(
 )
 }
 */
+
+
+
 
 /*
 //Passing states as props (Count App)
@@ -66,6 +67,8 @@ const [count, setCount] = React.useState(0)
 */
 
 
+
+
 /*
 //Conditional rendering 2 (Unread Messages App)
 const [messages, setMessages] = React.useState(["a", "b", "c"])
@@ -73,8 +76,8 @@ const [messages, setMessages] = React.useState(["a", "b", "c"])
 return (
     <div>
         {
-          messages.length === 0 ? <h1>You're all caught up!</h1>
-          : <h1>You have {messages.length} message{messages.length === 1 ? "" : "s"}</h1>
+        messages.length === 0 ? <h1>You're all caught up!</h1>
+        : <h1>You have {messages.length} message{messages.length === 1 ? "" : "s"}</h1>
         }
     </div>
 )
@@ -86,20 +89,22 @@ return (
 /*
 Conditional Rendering 1 (Jokes APp)
 const jokeElements = jokesData.map(joke => {
-  return (
-      <Joke
-          key={joke.id}
-          setup={joke.setup}
-          punchline={joke.punchline}
-      />
-  )
+    return (
+        <Joke
+            key={joke.id}
+            setup={joke.setup}
+            punchline={joke.punchline}
+        />
+    )
 })
 return (
-  <div>
-      {jokeElements}
-  </div>
+    <div>
+        {jokeElements}
+    </div>
 )
 }
 */
+
+
 
 export default App
