@@ -1,12 +1,13 @@
 import React from "react"
 import ClaudeRecipe from "./components/ClaudeRecipe"
 import IngredientsListComponent from "./components/IngredientsList"
+import { getRecipeFromMistral } from "../ai.js"
 
 function Content(){
 
-    const [ingredients, setIngredients] = React.useState([])
+    const [ingredients, setIngredients] = React.useState(["Pasta", "Cheese", "Ground beef", "Tomato paste"])
 
-    const [recipeShown, setRecipeShown] =React.useState(false)
+    const [recipe, setRecipe] =React.useState(false)
 
     function AddIngredients(formData){
         const newIngredient = formData.get("ingredient")
@@ -19,14 +20,22 @@ function Content(){
         }
     }
 
-    function IsRecipeShown(){
-        setRecipeShown(prevShown => !prevShown)
+    function handleSubmit(e) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        AddIngredients(formData);
+        e.target.reset();
+    }
+
+    async function getRecipe(ingredientsArr){
+        const generatedRecipe = await getRecipeFromMistral(ingredientsArr)
+        setRecipe(generatedRecipe)
     }
 
     return(
         <div className="wrapper">
 
-            <form className="inputSection" action={AddIngredients} >
+            <form className="inputSection" onSubmit={handleSubmit}>
                 <input type="text" placeholder="e.g. oregano" name="ingredient" />
                 <button >+ Add ingredient</button>
             </form>
@@ -34,10 +43,10 @@ function Content(){
             { ingredients.length > 0 &&
             <IngredientsListComponent
                     ingredients={ingredients}
-                    recipeToggle={IsRecipeShown}
+                    getRecipe={getRecipe}
             />}
 
-            {recipeShown && <ClaudeRecipe/>}
+            {recipe && <ClaudeRecipe recipe={recipe}/>}
 
         </div>
         
