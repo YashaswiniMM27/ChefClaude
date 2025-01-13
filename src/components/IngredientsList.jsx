@@ -17,4 +17,5 @@ export default function IngredientsListComponent(props){
                 </div>}
         </section>
     )
+    
 }

@@ -2,6 +2,7 @@ import Markdown from 'react-markdown'
 import '../index.css'
 
 export default function ClaudeRecipe(props){
+    
     return(
         <article className="suggested-recipe-container">
             <h2>Chef Claude Recommends:</h2>
@@ -10,4 +11,5 @@ export default function ClaudeRecipe(props){
             </div>
             </article>
     )
+
 }
