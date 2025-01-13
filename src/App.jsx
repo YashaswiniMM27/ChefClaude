@@ -1,10 +1,8 @@
 import React from "react"
+import './index.css'
 import Content from "./content.jsx"
 import Header from "./header.jsx"
-import ContactCard from "../src/Practice/practice.jsx"
-// import Count from "./practice.jsx"
-// import jokesData from './practice.js'
-// import Joke from "./practice.jsx"
+
 
 function App() {
 
@@ -23,6 +21,13 @@ function App() {
 
 
 
+/*
+//Pads App
+return(
+    <Pads/>
+)
+}
+*/
 
 /*
 //Passing states as props (Count App)
