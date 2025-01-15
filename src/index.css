@@ -11,7 +11,7 @@ body::before{
   top: 0;
   left: 0;
   z-index: -1;
-  opacity: 0.1;
+  opacity: 0.05;
 }
 
 body{
@@ -201,6 +201,13 @@ li::before {
 
 .suggested-recipe-container ul li, .suggested-recipe-container ol li {
   margin-bottom: 8px;
+}
+
+.loader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
 }
 
 
