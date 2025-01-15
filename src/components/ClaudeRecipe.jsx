@@ -7,9 +7,9 @@ export default function ClaudeRecipe(props){
         <article className="suggested-recipe-container">
             <h2>Chef Claude Recommends:</h2>
             <div className="react-markdown">
-            <Markdown>{props.recipe}</Markdown>
+                <Markdown>{props.recipe}</Markdown>
             </div>
-            </article>
+        </article>
     )
 
 }

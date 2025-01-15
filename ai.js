@@ -7,26 +7,53 @@ You are an assistant that receives a list of ingredients that a user has and sug
 
 const hf = new HfInference(config.HF_ACCESS_TOKEN)
 
+if (!config.HF_ACCESS_TOKEN) {
+    console.error("Error: Hugging Face API token is missing.");
+    throw new Error("Hugging Face API token is not configured.");
+}
+
 export async function getRecipeFromMistral(ingredientsArr) {
-
     if (!Array.isArray(ingredientsArr)) {
-        console.error('ingredientsArr is not an array');
-        return;
+        console.error('Error: `ingredientsArr` is not an array.');
+        return "Invalid ingredients input.";
     }
 
-    const ingredientsString = ingredientsArr.join(", ")
+    async function fetchWithRetry(requestFn, retries = 3, delay = 2000) {
+        for (let attempt = 0; attempt < retries; attempt++) {
+            try {
+                return await requestFn();
+            } catch (err) {
+                if (attempt < retries - 1) {
+                    console.warn(`Retrying... (${attempt + 1}/${retries})`);
+                    await new Promise((resolve) => setTimeout(resolve, delay));
+                } else {
+                    console.error("Max retries reached. Error:", err.message);
+                    throw err;
+                }
+            }
+        }
+    }
+
+    const ingredientsString = ingredientsArr.join(", ");
     try {
-        const response = await hf.chatCompletion({
-            model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
-            messages: [
-                { role: "system", content: SYSTEM_PROMPT },
-                { role: "user", content: `I have ${ingredientsString}. Please give me a recipe you'd recommend I make!` },
-            ],
-            max_tokens: 1024,
-        })
-        return response.choices[0].message.content
+        const response = await fetchWithRetry(() =>
+            hf.chatCompletion({
+                model: "mistralai/Mixtral-8x7B-Instruct-v0.1",
+                messages: [
+                    { role: "system", content: SYSTEM_PROMPT },
+                    { role: "user", content: `I have ${ingredientsString}. Please give me a recipe you'd recommend I make!` },
+                ],
+                max_tokens: 1024,
+            })
+        );
+    
+        if (response?.choices?.length > 0) {
+            return response.choices[0].message.content;
+        } else {
+            console.warn("No choices returned in response.");
+            return "Sorry, I couldn't generate a recipe this time.";
+        }
     } catch (err) {
-        console.error(err.message)
-    }
-
+        console.error("Error fetching recipe:", err.message);
+        return "Unfortunately, the recipe generation service is temporarily unavailable. Please try again later.";    }
 }

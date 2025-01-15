@@ -1,13 +1,15 @@
 import React from "react"
 import ClaudeRecipe from "./components/ClaudeRecipe"
 import IngredientsListComponent from "./components/IngredientsList"
-import { getRecipeFromMistral } from "../ai.js" 
+import { getRecipeFromMistral } from "../ai.js"
 
 function Content(){
 
     const [ingredients, setIngredients] = React.useState(["Pasta", "Cheese", "Ground beef", "Tomato paste"])
 
     const [recipe, setRecipe] =React.useState(false)
+
+    const [loading, setLoading] = React.useState(false);
 
     function AddIngredients(formData){
         const newIngredient = formData.get("ingredient")
@@ -28,8 +30,11 @@ function Content(){
     }
 
     async function getRecipe(ingredientsArr){
+        setLoading(true)
         const generatedRecipe = await getRecipeFromMistral(ingredientsArr)
         setRecipe(generatedRecipe)
+        setLoading(false)
+
     }
 
     return(
@@ -46,7 +51,10 @@ function Content(){
                     getRecipe={getRecipe}
             />}
 
-            {recipe && <ClaudeRecipe recipe={recipe}/>}
+            {loading && <div className="loader">
+                            <img src="/src/assets/loader.gif" alt="Loading..." />
+                        </div>}
+            {!loading && recipe && <ClaudeRecipe recipe={recipe}/>}
 
         </div>
         
