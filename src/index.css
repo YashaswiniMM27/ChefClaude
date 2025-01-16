@@ -149,10 +149,11 @@ li::before {
   width: 594px;
   height: 100%;
   margin-top: 40px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
   margin-left: 20px;
   border-radius: 8px;
   padding: 25px;
+  scroll-margin-top: 20px;
 }
 
 .recipeButton{

@@ -11,6 +11,14 @@ function Content(){
 
     const [loading, setLoading] = React.useState(false);
 
+    const recipeSection = React.useRef(null)
+
+    React.useEffect(() => {
+        if(recipe !== "" && recipeSection.current !== null){
+            recipeSection.current.scrollIntoView({behavior: "smooth"})
+        }
+    }, [recipe])
+
     function AddIngredients(formData){
         const newIngredient = formData.get("ingredient")
         if(newIngredient)
@@ -49,6 +57,7 @@ function Content(){
             <IngredientsListComponent
                     ingredients={ingredients}
                     getRecipe={getRecipe}
+                    ref={recipeSection}
             />}
 
             {loading && <div className="loader">
