@@ -1,7 +1,7 @@
 import React from "react"
-import ClaudeRecipe from "./components/ClaudeRecipe"
-import IngredientsListComponent from "./components/IngredientsList"
-import { getRecipeFromMistral } from "../ai.js"
+import ClaudeRecipe from "./ClaudeRecipe"
+import IngredientsListComponent from "./IngredientsList"
+import { getRecipeFromMistral } from "../../ai.js"
 
 function Content(){
 

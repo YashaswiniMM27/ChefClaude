@@ -1,7 +1,7 @@
 import React from "react"
 import './index.css'
-import Content from "./content.jsx"
-import Header from "./header.jsx"
+import Content from "../src/components/content.jsx"
+import Header from "../src/components/header.jsx"
 
 
 function App() {
